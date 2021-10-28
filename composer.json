@@ -1,0 +1,20 @@
+{
+    "name": "weeds/wechat-work",
+    "description": "企业微信SDK",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "weeds",
+            "email": "weedsyl@163.com"
+        }
+    ],
+    "require": {
+        "php": ">=php7.3"
+    },
+    "autoload": {
+        "psr-0": {
+            "Weeds\\WechatWork": "src/"
+        }
+    }
+}
