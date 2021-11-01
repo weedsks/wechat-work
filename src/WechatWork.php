@@ -189,7 +189,43 @@ class WechatWork
         return $this->getCurl($url);
     }
 
-    public function getcheckin_monthdata()
+    /**
+     * 打卡日报数据
+     * @param int $starttime
+     * @param int $endtime
+     * @param array $userlist
+     * @return array|void
+     */
+    public function getcheckin_monthdata(array $userlist, int $starttime = 0, int $endtime = 0)
+    {
+        if (empty($starttime) || empty($endtime)){
+            $starttime = mktime(0, 0 , 0,date("m")-1,1,date("Y"));
+            $endtime = mktime(23,59,59,date("m") ,0,date("Y"));
+        }
+        list($status, $token) = $token = $this->access_token('OA');
+        if (!$status){
+            return [false, $token];
+        }
+        $array = [
+            'access_token'  => $token,
+        ];
+        $json_param = [
+            'starttime'=>$starttime,
+            'endtime'=>$endtime,
+            'useridlist' => $userlist
+        ];
+        $url = $this->url . 'checkin/getcheckin_monthdata?' . http_build_query($array);
+        return $this->postCurl($url, $json_param);
+    }
+
+    /**
+     * 打卡月报数据
+     * @param int $starttime
+     * @param int $endtime
+     * @param array $userlist
+     * @return array|void
+     */
+    public function getcheckin_daydata(array $userlist, int $starttime, int $endtime )
     {
         list($status, $token) = $token = $this->access_token('OA');
         if (!$status){
@@ -199,13 +235,11 @@ class WechatWork
             'access_token'  => $token,
         ];
         $json_param = [
-            'starttime'=>1630511999,
-            'endtime'=>1633017599,
-            'useridlist' => [
-                'WuWenMin', 'LanJunSen', 'PengXin'
-            ]
+            'starttime'=>$starttime,
+            'endtime'=>$endtime,
+            'useridlist' => $userlist
         ];
-        $url = $this->url . 'checkin/getcheckin_monthdata?' . http_build_query($array);
+        $url = $this->url . 'checkin/getcheckin_daydata?' . http_build_query($array);
         return $this->postCurl($url, $json_param);
     }
 

@@ -38,7 +38,10 @@ return [
             'token'    => 'xxxxxxxxxxxxxxxxx',
             'aes_key'  => 'xxxxxxxxxxxxxxxxx',
         ],
-
+        'OA' => [
+            'agent_id' => 0,
+            'secret'   => 'xxxxxxxxxxx',
+        ],
         //...
     ],
 ];
