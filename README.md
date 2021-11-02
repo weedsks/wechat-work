@@ -1,6 +1,6 @@
 ###  安装
 ```shell
-composer require
+composer require weeds/wechat-work
 ```
 
 ### 添加服务 修改 config/app.php
