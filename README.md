@@ -23,6 +23,6 @@ php artisan vendor:publish --provider="Weeds\WechatWork\WechatWorkServiceProvide
 ###  使用
 ```php
     use WechatWork;
-    $token = WechatWork::access_token();
+    list($status,$token) = WechatWork::access_token();
     dump($token);exit;
 ```
