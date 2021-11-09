@@ -154,7 +154,7 @@ class WechatWork
      * @param string $department_id
      * @return void
      */
-    public function user_simplelist(string $department_id)
+    public function user_simplelist(string $department_id, int $fetch_child=1)
     {
         list($status, $token) = $token = $this->access_token();
         if (!$status){
@@ -163,6 +163,7 @@ class WechatWork
         $array = [
             'access_token'  => $token,
             'department_id' => $department_id,
+            'fetch_child'=> $fetch_child
         ];
         $url = $this->url . 'user/simplelist?' . http_build_query($array);
         return $this->getCurl($url);
@@ -175,7 +176,7 @@ class WechatWork
      * @param string $department_id 获取的部门id
      * @return void
      */
-    public function user_list(string $department_id)
+    public function user_list(string $department_id, int $fetch_child=1)
     {
         list($status, $token) = $token = $this->access_token();
         if (!$status){
@@ -184,6 +185,7 @@ class WechatWork
         $array = [
             'access_token'  => $token,
             'department_id' => $department_id,
+            'fetch_child'=> $fetch_child
         ];
         $url = $this->url . 'user/list?' . http_build_query($array);
         return $this->getCurl($url);
