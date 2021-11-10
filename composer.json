@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Weeds\\WechatWork": "src/"
+            "Weeds\\WechatWork\\": "src/"
         }
     }
 }
