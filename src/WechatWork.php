@@ -136,7 +136,7 @@ class WechatWork
      */
     public function department_list()
     {
-        list($status, $token) = $token = $this->access_token();
+        list($status, $token) = $this->access_token();
         if (!$status){
             return [false, $token];
         }
@@ -191,6 +191,38 @@ class WechatWork
         return $this->getCurl($url);
     }
 
+
+    /**
+     * 获取打卡记录数据
+     * @param int $starttime
+     * @param int $endtime
+     * @param array $userlist
+     * @param int $opencheckindatatype 打卡类型。1：上下班打卡；2：外出打卡；3：全部打卡
+     * @return array|void
+     */
+    public function getcheckindata(array $userlist, int $starttime = 0, int $endtime = 0, $opencheckindatatype=3)
+    {
+        if (empty($starttime) || empty($endtime)){//默认当天
+            $starttime = strtotime(date('Y-m-d'));
+            $endtime = time();
+        }
+        list($status, $token) = $this->access_token('OA');
+        if (!$status){
+            return [false, $token];
+        }
+        $array = [
+            'access_token'  => $token,
+        ];
+        $json_param = [
+            'opencheckindatatype'=>$opencheckindatatype,
+            'starttime'=>$starttime,
+            'endtime'=>$endtime,
+            'useridlist' => $userlist
+        ];
+        $url = $this->url . 'checkin/getcheckindata?' . http_build_query($array);
+        return $this->postCurl($url, $json_param);
+    }
+
     /**
      * 打卡日报数据
      * @param int $starttime
@@ -204,7 +236,7 @@ class WechatWork
             $starttime = mktime(0, 0 , 0,date("m")-1,1,date("Y"));
             $endtime = mktime(23,59,59,date("m") ,0,date("Y"));
         }
-        list($status, $token) = $token = $this->access_token('OA');
+        list($status, $token) = $this->access_token('OA');
         if (!$status){
             return [false, $token];
         }
@@ -229,7 +261,7 @@ class WechatWork
      */
     public function getcheckin_daydata(array $userlist, int $starttime, int $endtime )
     {
-        list($status, $token) = $token = $this->access_token('OA');
+        list($status, $token) = $this->access_token('OA');
         if (!$status){
             return [false, $token];
         }
@@ -253,7 +285,7 @@ class WechatWork
      */
     public function user_get(string $userid)
     {
-        list($status, $token) = $token = $this->access_token();
+        list($status, $token) = $this->access_token();
         if (!$status){
             return [false, $token];
         }
@@ -274,7 +306,7 @@ class WechatWork
      */
     public function externalcontact_lis(string $userid)
     {
-        list($status, $token) = $token = $this->access_token();
+        list($status, $token) = $this->access_token();
         if (!$status){
             return [false, $token];
         }
@@ -295,7 +327,7 @@ class WechatWork
      */
     public function externalcontact_get(string $external_userid)
     {
-        list($status, $token) = $token = $this->access_token();
+        list($status, $token) = $this->access_token();
         if (!$status){
             return [false, $token];
         }
@@ -321,7 +353,7 @@ class WechatWork
      */
     public function externalcontact_groupchat_list(int $status_filter = 0, int $owner_filter = 0, int $userid_list = 100, int $partyid_list = 100, int $offset = 0, int $limit = 1000)
     {
-        list($status, $token) = $token = $this->access_token();
+        list($status, $token) = $this->access_token();
         if (!$status){
             return [false, $token];
         }
@@ -346,7 +378,7 @@ class WechatWork
      */
     public function externalcontact_groupchat_get(string $chat_id)
     {
-        list($status, $token) = $token = $this->access_token();
+        list($status, $token) = $this->access_token();
         if (!$status){
             return [false, $token];
         }
@@ -368,7 +400,7 @@ class WechatWork
      */
     public function externalcontact_get_user_behavior_data(string $userid = NULL, string $partyid = NULL, string $start_time, string $end_time)
     {
-        list($status, $token) = $token = $this->access_token();
+        list($status, $token) = $this->access_token();
         if (!$status){
             return [false, $token];
         }
@@ -403,7 +435,7 @@ class WechatWork
      */
     public function externalcontact_groupchat_statistic(string $day_begin_time, string $owner_filter = NULL, string $userid_list = NULL, string $partyid_list = NULL, int $order_by = 1, int $order_asc = 0, int $offset = 0, int $limit = 1000)
     {
-        list($status, $token) = $token = $this->access_token();
+        list($status, $token) = $this->access_token();
         if (!$status){
             return [false, $token];
         }
@@ -461,7 +493,7 @@ class WechatWork
         string $miniprogram_appid = NULL,
         string $miniprogram_page = NULL
     ) {
-        list($status, $token) = $token = $this->access_token();
+        list($status, $token) = $this->access_token();
         if (!$status){
             return [false, $token];
         }
