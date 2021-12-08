@@ -9,7 +9,7 @@ return [
     |
     */
 
-    'corp_id' => 'xxxxxxxxxxxxxxxxx',
+    'corp_id' => env('WECHATWORK_CORP_ID'),
 
     /*
     |--------------------------------------------------------------------------
@@ -32,16 +32,16 @@ return [
     */
 
     'agents' => [
-        'contacts' => [
-            'agent_id' => 0,
-            'secret'   => 'xxxxxxxxxxxxxxxxx',
-            'token'    => 'xxxxxxxxxxxxxxxxx',
-            'aes_key'  => 'xxxxxxxxxxxxxxxxx',
+        'contacts' => [//通讯录
+            'secret'   => env('WECHATWORK_AGENTS_CONTACTS_SECRET'),
         ],
-        'OA' => [
-            'agent_id' => 0,
-            'secret'   => 'xxxxxxxxxxx',
+        'OA' => [//打卡
+            'agent_id' => env('WECHATWORK_AGENTS_OA_AGENT_ID'),
+            'secret'   => env('WECHATWORK_AGENTS_OA_SECRET'),
         ],
-        //...
+        'application'=>[//自建应用
+            'agent_id' => env('WECHATWORK_AGENTS_APPLICATION_AGENT_ID'),
+            'secret'=>env('WECHATWORK_AGENTS_APPLICATION_SECRET')
+        ]
     ],
 ];
