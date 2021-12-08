@@ -20,6 +20,21 @@ php artisan vendor:publish --provider="Weeds\WechatWork\WechatWorkServiceProvide
 ```
 ###
 
+### 修改env文件
+```shell
+# 企业微信sdk配置
+#通讯录
+WECHATWORK_CORP_ID = xxx
+WECHATWORK_AGENTS_CONTACTS_SECRET = xxx
+#打卡
+WECHATWORK_AGENTS_OA_AGENT_ID = 110xxxx
+WECHATWORK_AGENTS_OA_SECRET = xxxx
+#自建应用
+WECHATWORK_AGENTS_APPLICATION_AGENT_ID = 222xxx
+WECHATWORK_AGENTS_APPLICATION_SECRET = xxx
+```
+###
+
 ###  使用
 ```php
     use WechatWork;
