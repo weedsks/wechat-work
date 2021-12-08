@@ -1,7 +1,7 @@
 {
     "name": "weeds/wechat-work",
     "description": "企业微信SDK",
-    "keywords": ["wechat","laravel", "sdk"],
+    "keywords": ["wechat","laravel","laravel8", "sdk"],
     "minimum-stability": "stable",
     "license": "proprietary",
     "authors": [
