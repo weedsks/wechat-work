@@ -7,6 +7,8 @@ namespace Weeds\WechatWork;
 use Illuminate\Config\Repository;
 
 /**
+ * @author weeds
+ * @email weedsyl@163.com
  * 企业微信 API
  */
 class WechatWork
@@ -518,13 +520,82 @@ class WechatWork
         if (!empty($miniprogram_appid))         $json['miniprogram.appid']          = $miniprogram_appid;
         if (!empty($miniprogram_page))          $json['miniprogram.page']           = $miniprogram_page;
 
-        dd($json);
         return $this->postCurl($url, $json);
     }
 
 
-
-    public function media_get()
+    
+    /**
+     * 自建应用 发送MD消息
+     * @param $touser
+     * @param $markdown
+     * @param string $toparty
+     * @param string $totag
+     * @param int $enable_duplicate_check
+     * @param int $duplicate_check_interval
+     * @return array|void
+     */
+    public function message_send_markdown($touser, $markdown, $toparty='', $totag='', $enable_duplicate_check = 0, $duplicate_check_interval=1800)
     {
+        list($status, $token) = $this->access_token('application');
+        if (!$status){
+            return [false, $token];
+        }
+        $array = [
+            'access_token'  => $token,
+        ];
+        $url = $this->url . 'message/send?' . http_build_query($array);
+
+        $json = [
+            'agentid'  => $this->config['agents']['application']['agent_id'],
+            'msgtype'=>'markdown',
+            'enable_duplicate_check'=>$enable_duplicate_check,
+            'duplicate_check_interval'=>$duplicate_check_interval,
+        ];
+        if (!empty($touser)) $json['touser'] = $touser;
+        if (!empty($toparty)) $json['toparty'] = $toparty;
+        if (!empty($totag)) $json['totag'] = $totag;
+
+        $json['markdown'] = $markdown;
+        return $this->postCurl($url, $json);
     }
+
+    /**
+     * 自建应用 发送文本
+     * @param $touser
+     * @param $content
+     * @param string $toparty
+     * @param string $totag
+     * @param int $safe
+     * @param int $enable_duplicate_check
+     * @param int $duplicate_check_interval
+     * @param int $enable_id_trans
+     * @return array
+     */
+    public function message_send_text($touser, $content, $toparty = '', $totag = '', $safe = 0, $enable_duplicate_check = 0, $duplicate_check_interval = 1800, $enable_id_trans = 0)
+    {
+        list($status, $token) = $this->access_token('application');
+        if (!$status) {
+            return [false, $token];
+        }
+        $array = [
+            'access_token' => $token,
+        ];
+        $url = $this->url . 'message/send?' . http_build_query($array);
+
+        $json = [
+            'agentid' => $this->config['agents']['application']['agent_id'],
+            'msgtype' => 'text',
+            'enable_duplicate_check' => $enable_duplicate_check,
+            'duplicate_check_interval' => $duplicate_check_interval,
+        ];
+        if (!empty($touser)) $json['touser'] = $touser;
+        if (!empty($toparty)) $json['toparty'] = $toparty;
+        if (!empty($totag)) $json['totag'] = $totag;
+
+        $json['text'] = $content;
+        return $this->postCurl($url, $json);
+    }
+
+   
 }
