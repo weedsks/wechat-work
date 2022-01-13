@@ -56,7 +56,7 @@ class WechatWork
     public function getCurl(string $url)
     {
         $client = new \GuzzleHttp\Client();
-        $response = $client->get($url);
+        $response = $client->get($url,['verify'=>false]);
 
         // 状态
         if ($response->getStatusCode() != 200) {
@@ -84,7 +84,7 @@ class WechatWork
         $client = new \GuzzleHttp\Client();
         $response = $client->post($url, [
             'json' => $options,
-
+            'verify'=>false,
             // 头信息
             'headers' => [
                 'User-Agent' => 'Mozilla/5.0',
